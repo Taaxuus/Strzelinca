@@ -7,9 +7,9 @@ import Image from "next/image";
 const Hero = () => {
 	const stats = [
 		{ icon: Target, label: "Lat tradycji klubowej", value: "15+" },
-		{ icon: Award, label: "Wykwalifikowanych instruktorów", value: "8" },
-		{ icon: Users, label: "Aktywnych członków klubu", value: "500+" },
-		{ icon: MapPin, label: "Stanowisk treningowych", value: "12" },
+		{ icon: Award, label: "Wykwalifikowanych instruktorów", value: "3" },
+		{ icon: Users, label: "Aktywnych członków klubu", value: "60+" },
+		{ icon: MapPin, label: "Stanowisk treningowych", value: "8" },
 	];
 
 	return (

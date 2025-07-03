@@ -36,7 +36,7 @@ const Contact = () => {
 		{
 			icon: MapPin,
 			title: "Adres",
-			details: ["ul. Strzelecka 15", "00-001 Warszawa"],
+			details: ["ul. Złota 65", "Głogów Małopolski, Poland"],
 			link: "https://maps.google.com",
 		},
 		{
