@@ -15,21 +15,25 @@ const Footer = () => {
 	const currentYear = new Date().getFullYear();
 
 	const quickLinks = [
-		{ name: "O nas", href: "#about" },
-		{ name: "Zajęcia", href: "#services" },
+		{ name: "O klubie", href: "#about" },
+		{ name: "Aktywności", href: "#services" },
 		{ name: "Galeria", href: "#gallery" },
 		{ name: "Kontakt", href: "#contact" },
 	];
 
 	const services = [
-		{ name: "Kurs podstawowy", href: "#services" },
-		{ name: "Trening zaawansowany", href: "#services" },
-		{ name: "Strzelanie precyzyjne", href: "#services" },
-		{ name: "Przygotowanie do zawodów", href: "#services" },
+		{ name: "Treningi klubowe", href: "#services" },
+		{ name: "Kursy dla początkujących", href: "#services" },
+		{ name: "Zawody i turnieje", href: "#services" },
+		{ name: "Szkolenia instruktorskie", href: "#services" },
 	];
 
 	const socialLinks = [
-		{ icon: Facebook, href: "#", label: "Facebook" },
+		{
+			icon: Facebook,
+			href: "https://www.facebook.com/p/Klub-Strzelecki-Strzelka-100064567940959/?locale=pl_PL",
+			label: "Facebook",
+		},
 		{ icon: Instagram, href: "#", label: "Instagram" },
 		{ icon: Youtube, href: "#", label: "YouTube" },
 	];
@@ -63,8 +67,9 @@ const Footer = () => {
 							</div>
 						</div>
 						<p className="text-gray-400 mb-10 leading-relaxed text-lg lg:text-xl text-center">
-							Profesjonalne szkolenia strzeleckie, nowoczesne stanowiska i
-							pasjonaci strzelectwa w jednym miejscu.
+							Tradycyjny klub strzelecki z długoletnią historią, skupiający
+							pasjonatów sportu strzeleckiego i rozwijający umiejętności
+							członków.
 						</p>
 						<div className="flex justify-center space-x-8">
 							{socialLinks.map((social, index) => (
@@ -114,7 +119,7 @@ const Footer = () => {
 						viewport={{ once: true }}
 						className="flex-1 min-w-64 max-w-xs flex flex-col items-center">
 						<h4 className="text-xl lg:text-2xl font-semibold text-white mb-10 text-center">
-							Nasze zajęcia
+							Nasze aktywności
 						</h4>
 						<div className="flex flex-col items-center space-y-5">
 							{services.map((service) => (
@@ -158,9 +163,9 @@ const Footer = () => {
 							<div className="flex flex-col items-center space-y-2 text-center">
 								<Mail className="w-7 h-7 text-red-500 flex-shrink-0" />
 								<a
-									href="mailto:info@strzelka.pl"
+									href="mailto:strzelkaks@gmail.com"
 									className="text-gray-400 hover:text-red-500 transition-colors text-lg">
-									info@strzelka.pl
+									strzelkaks@gmail.com
 								</a>
 							</div>
 						</div>

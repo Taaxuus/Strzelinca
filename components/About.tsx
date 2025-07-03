@@ -14,21 +14,21 @@ const About = () => {
 		},
 		{
 			icon: Trophy,
-			title: "Doświadczenie",
+			title: "Tradycja",
 			description:
-				"15 lat doświadczenia w szkoleniu strzelców na różnych poziomach zaawansowania.",
+				"15 lat tradycji klubowej i bogate doświadczenie w rozwijaniu sportu strzeleckiego.",
 		},
 		{
 			icon: BookOpen,
-			title: "Edukacja",
+			title: "Szkolenia",
 			description:
-				"Kompleksowe szkolenia teoretyczne i praktyczne prowadzone przez certyfikowanych instruktorów.",
+				"Kompleksowe programy szkoleniowe dla członków klubu prowadzone przez wykwalifikowanych instruktorów.",
 		},
 		{
 			icon: Users2,
-			title: "Społeczność",
+			title: "Wspólnota",
 			description:
-				"Prężna społeczność miłośników strzelectwa i regularnie organizowane zawody.",
+				"Prężna wspólnota członków klubu, regularne spotkania i uczestnictwo w zawodach sportowych.",
 		},
 	];
 
@@ -46,7 +46,7 @@ const About = () => {
 					<h2
 						className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white"
 						style={{ marginBottom: "1rem" }}>
-						O nas
+						O naszym klubie
 					</h2>
 					<motion.div
 						initial={{ opacity: 0, scale: 0.8 }}
@@ -67,10 +67,10 @@ const About = () => {
 						className="w-24 sm:w-32 h-1 sm:h-1.5 bg-red-600 mx-auto"
 						style={{ marginBottom: "2.5rem" }}></div>
 					<p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-						Klub Strzelecki Strzelka to miejsce, gdzie pasja do strzelectwa
-						łączy się z profesjonalizmem i bezpieczeństwem. Od 15 lat kształcimy
-						umiejętności strzeleckie i budujemy społeczność miłośników tej
-						dyscypliny.
+						Klub Strzelecki Strzelka to tradycyjna organizacja sportowa z
+						15-letnią historią, zrzeszająca pasjonatów sportu strzeleckiego.
+						Oferujemy członkom kompleksowe szkolenia, uczestnictwo w zawodach
+						oraz rozwój umiejętności w przyjaznej atmosferze.
 					</p>
 				</motion.div>
 

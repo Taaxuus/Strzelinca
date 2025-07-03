@@ -48,19 +48,23 @@ const Contact = () => {
 		{
 			icon: Mail,
 			title: "Email",
-			details: ["info@strzelka.pl", "kursy@strzelka.pl"],
-			link: "mailto:info@strzelka.pl",
+			details: ["strzelkaks@gmail.com", "zarzad@strzelka.pl"],
+			link: "mailto:strzelkaks@gmail.com",
 		},
 		{
 			icon: Clock,
-			title: "Godziny otwarcia",
-			details: ["Pon-Pt: 10:00-20:00", "Sob-Ndz: 9:00-18:00"],
+			title: "Godziny treningów",
+			details: ["Wtorek, Czwartek: 17:00-21:00", "Sobota: 10:00-16:00"],
 			link: null,
 		},
 	];
 
 	const socialLinks = [
-		{ icon: Facebook, href: "#", label: "Facebook" },
+		{
+			icon: Facebook,
+			href: "https://www.facebook.com/p/Klub-Strzelecki-Strzelka-100064567940959/?locale=pl_PL",
+			label: "Facebook",
+		},
 		{ icon: Instagram, href: "#", label: "Instagram" },
 		{ icon: Youtube, href: "#", label: "YouTube" },
 	];
@@ -79,7 +83,7 @@ const Contact = () => {
 					</h2>
 					<div className="w-32 h-1.5 bg-red-600 mx-auto mb-10"></div>
 					<p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-						Masz pytania? Chcesz zapisać się na zajęcia? Skontaktuj się z nami!
+						Masz pytania? Chcesz dołączyć do klubu? Skontaktuj się z nami!
 					</p>
 				</motion.div>
 
@@ -237,7 +241,7 @@ const Contact = () => {
 									required
 									rows={6}
 									className="w-full px-6 py-4 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all resize-none text-lg"
-									placeholder="Napisz tutaj swoją wiadomość..."
+									placeholder="Jak mogę dołączyć do klubu? Jakie są koszty członkostwa?..."
 								/>
 							</div>
 

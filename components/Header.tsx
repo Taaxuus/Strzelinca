@@ -19,8 +19,8 @@ const Header = () => {
 	}, []);
 
 	const navigation = [
-		{ name: "O nas", href: "#about" },
-		{ name: "Zajęcia", href: "#services" },
+		{ name: "O klubie", href: "#about" },
+		{ name: "Aktywności", href: "#services" },
 		{ name: "Galeria", href: "#gallery" },
 		{ name: "Kontakt", href: "#contact" },
 	];
