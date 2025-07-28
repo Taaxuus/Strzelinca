@@ -8,6 +8,7 @@ import {
 	Clock,
 	CheckCircle,
 } from "lucide-react";
+
 const Services = () => {
 	const services = [
 		{
@@ -66,31 +67,26 @@ const Services = () => {
 			],
 		},
 	];
+
 	return (
-		<section id="services" className="py-24 lg:py-32 bg-black">
-			{" "}
-			<div className="container mx-auto">
-				{" "}
+		<section id="services" className="py-24 lg:py-32 bg-gray-50">
+			<div className="max-w-7xl mx-auto px-4">
 				<motion.div
 					initial={{ opacity: 0, y: 50 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8 }}
 					viewport={{ once: true }}
-					className="flex flex-col items-center text-center mb-24 lg:mb-32">
-					{" "}
-					<h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8">
-						{" "}
-						Aktywności klubowe{" "}
-					</h2>{" "}
-					<div className="w-32 h-1.5 bg-red-600 mx-auto mb-10"></div>{" "}
-					<p className="text-xl md:text-2xl text-gray-300 max-w-4xl leading-relaxed">
-						{" "}
+					className="text-center mb-20 lg:mb-24">
+					<h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-8">
+						Aktywności klubowe
+					</h2>
+					<div className="w-32 h-1.5 bg-red-600 mx-auto mb-10"></div>
+					<p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
 						Klub oferuje różnorodne formy aktywności sportowej i szkoleniowej
-						dla członków na każdym poziomie zaawansowania.{" "}
-					</p>{" "}
-				</motion.div>{" "}
-				<div className="flex flex-wrap justify-center items-stretch gap-16 lg:gap-20 mb-32 lg:mb-40">
-					{" "}
+						dla członków na każdym poziomie zaawansowania.
+					</p>
+				</motion.div>
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 mb-16 lg:mb-20">
 					{services.map((service, index) => (
 						<motion.div
 							key={service.title}
@@ -98,81 +94,67 @@ const Services = () => {
 							whileInView={{ opacity: 1, y: 0 }}
 							transition={{ delay: index * 0.1, duration: 0.6 }}
 							viewport={{ once: true }}
-							className="flex flex-col bg-gray-900 rounded-3xl p-12 max-w-sm w-full mx-auto border border-gray-800 hover:border-red-600 hover:bg-gray-800 transition-all duration-300 group">
-							{" "}
-							<div className="flex flex-col items-center text-center h-full">
-								{" "}
-								<div className="w-20 h-20 bg-red-600/20 rounded-full flex items-center justify-center mb-8 group-hover:bg-red-600/40 transition-colors">
-									{" "}
-									<service.icon className="w-10 h-10 text-red-500" />{" "}
-								</div>{" "}
-								<h3 className="text-2xl lg:text-3xl font-bold text-white mb-6">
-									{" "}
-									{service.title}{" "}
-								</h3>{" "}
-								<div className="flex items-center justify-center space-x-8 mb-8">
-									{" "}
-									<div className="flex items-center text-red-500 bg-red-600/10 px-4 py-2 rounded-full">
-										{" "}
-										<span className="text-xl lg:text-2xl font-bold">
-											{" "}
-											{service.price}{" "}
-										</span>{" "}
-									</div>{" "}
-									<div className="flex items-center text-gray-400">
-										{" "}
-										<Clock className="w-5 h-5 mr-2" /> {service.duration}{" "}
-									</div>{" "}
-								</div>{" "}
-								<p className="text-gray-400 text-lg leading-relaxed mb-10 flex-grow">
-									{" "}
-									{service.description}{" "}
-								</p>{" "}
-								<div className="w-full">
-									{" "}
-									<h4 className="text-xl font-semibold text-white mb-6">
-										{" "}
-										Co obejmuje:{" "}
-									</h4>{" "}
-									<ul className="space-y-4">
-										{" "}
+							className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 group border border-gray-200">
+							<div className="text-center">
+								<div className="w-16 h-16 bg-red-600/10 rounded-full flex items-center justify-center mb-6 mx-auto group-hover:bg-red-600/20 transition-colors">
+									<service.icon className="w-8 h-8 text-red-600" />
+								</div>
+								<h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-4">
+									{service.title}
+								</h3>
+								<div className="flex items-center justify-center space-x-4 mb-6">
+									<div className="text-red-600 bg-red-50 px-3 py-1 rounded-full">
+										<span className="text-sm font-semibold">
+											{service.price}
+										</span>
+									</div>
+									<div className="flex items-center text-gray-500 text-sm">
+										<Clock className="w-4 h-4 mr-1" />
+										{service.duration}
+									</div>
+								</div>
+								<p className="text-gray-600 leading-relaxed mb-6">
+									{service.description}
+								</p>
+								<div>
+									<h4 className="text-lg font-semibold text-gray-900 mb-4">
+										Co obejmuje:
+									</h4>
+									<ul className="space-y-2">
 										{service.features.map((feature, idx) => (
 											<li
 												key={idx}
-												className="flex items-start text-gray-300 text-lg">
-												{" "}
-												<CheckCircle className="w-6 h-6 text-red-500 mr-4 flex-shrink-0" />{" "}
-												{feature}{" "}
+												className="flex items-center text-gray-600 text-sm">
+												<CheckCircle className="w-4 h-4 text-red-500 mr-2 flex-shrink-0" />
+												{feature}
 											</li>
-										))}{" "}
-									</ul>{" "}
-								</div>{" "}
-							</div>{" "}
+										))}
+									</ul>
+								</div>
+							</div>
 						</motion.div>
-					))}{" "}
-				</div>{" "}
+					))}
+				</div>
 				<motion.div
 					initial={{ opacity: 0, y: 50 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8 }}
 					viewport={{ once: true }}
 					className="text-center">
-					{" "}
-					<p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto">
-						{" "}
-						Zainteresowany dołączeniem do naszego klubu? Skontaktuj się z nami!{" "}
-					</p>{" "}
+					<p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-4xl mx-auto">
+						Zainteresowany dołączeniem do naszego klubu? Skontaktuj się z nami!
+					</p>
 					<motion.a
 						href="#contact"
 						whileHover={{ scale: 1.05 }}
 						whileTap={{ scale: 0.95 }}
-						className="bg-red-600 hover:bg-red-700 text-white px-12 py-4 rounded-full font-semibold text-xl transition-all duration-300 shadow-2xl hover:shadow-red-600/50 inline-block">
-						{" "}
-						Dołącz do klubu{" "}
-					</motion.a>{" "}
-				</motion.div>{" "}
-			</div>{" "}
+						className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-red-600/25 inline-block">
+						Dołącz do klubu
+					</motion.a>
+				</motion.div>
+			</div>
 		</section>
 	);
 };
+
 export default Services;

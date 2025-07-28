@@ -70,19 +70,19 @@ const Contact = () => {
 	];
 
 	return (
-		<section id="contact" className="py-24 lg:py-32 bg-black">
-			<div className="container mx-auto">
+		<section id="contact" className="py-24 lg:py-32 bg-white">
+			<div className="max-w-7xl mx-auto px-4">
 				<motion.div
 					initial={{ opacity: 0, y: 50 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8 }}
 					viewport={{ once: true }}
 					className="text-center mb-20 lg:mb-24">
-					<h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8">
+					<h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-8">
 						Kontakt
 					</h2>
 					<div className="w-32 h-1.5 bg-red-600 mx-auto mb-10"></div>
-					<p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+					<p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
 						Masz pytania? Chcesz dołączyć do klubu? Skontaktuj się z nami!
 					</p>
 				</motion.div>
@@ -94,7 +94,7 @@ const Contact = () => {
 						transition={{ duration: 0.8 }}
 						viewport={{ once: true }}
 						className="flex-1 flex flex-col items-center text-center max-w-2xl">
-						<h3 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
+						<h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
 							Informacje kontaktowe
 						</h3>
 
@@ -111,13 +111,13 @@ const Contact = () => {
 										<info.icon className="w-8 h-8 lg:w-10 lg:h-10 text-red-500" />
 									</div>
 									<div className="text-center">
-										<h4 className="text-xl md:text-2xl font-semibold text-white mb-4">
+										<h4 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">
 											{info.title}
 										</h4>
 										{info.details.map((detail, detailIndex) => (
 											<p
 												key={detailIndex}
-												className="text-gray-300 text-lg leading-relaxed">
+												className="text-gray-600 text-lg leading-relaxed">
 												{info.link && detailIndex === 0 ? (
 													<a
 														href={info.link}
@@ -166,8 +166,8 @@ const Contact = () => {
 						whileInView={{ opacity: 1, x: 0 }}
 						transition={{ duration: 0.8 }}
 						viewport={{ once: true }}
-						className="flex-1 bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-8 lg:p-10 border border-gray-700 max-w-2xl">
-						<h3 className="text-3xl md:text-4xl font-bold text-white mb-8 text-center">
+						className="flex-1 bg-white rounded-3xl p-8 lg:p-10 border border-gray-200 shadow-lg max-w-2xl">
+						<h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
 							Wyślij wiadomość
 						</h3>
 
@@ -176,7 +176,7 @@ const Contact = () => {
 								<div>
 									<label
 										htmlFor="name"
-										className="block text-lg font-medium text-white mb-3">
+										className="block text-lg font-medium text-gray-900 mb-3">
 										Imię i nazwisko *
 									</label>
 									<input
@@ -186,7 +186,7 @@ const Contact = () => {
 										value={formData.name}
 										onChange={handleChange}
 										required
-										className="w-full px-6 py-4 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all text-lg"
+										className="w-full px-6 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all text-lg"
 										placeholder="Jan Kowalski"
 									/>
 								</div>
@@ -194,7 +194,7 @@ const Contact = () => {
 								<div>
 									<label
 										htmlFor="phone"
-										className="block text-lg font-medium text-white mb-3">
+										className="block text-lg font-medium text-gray-900 mb-3">
 										Telefon
 									</label>
 									<input
@@ -203,7 +203,7 @@ const Contact = () => {
 										name="phone"
 										value={formData.phone}
 										onChange={handleChange}
-										className="w-full px-6 py-4 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all text-lg"
+										className="w-full px-6 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all text-lg"
 										placeholder="+48 123 456 789"
 									/>
 								</div>
@@ -212,7 +212,7 @@ const Contact = () => {
 							<div>
 								<label
 									htmlFor="email"
-									className="block text-lg font-medium text-white mb-3">
+									className="block text-lg font-medium text-gray-900 mb-3">
 									Email *
 								</label>
 								<input
@@ -222,7 +222,7 @@ const Contact = () => {
 									value={formData.email}
 									onChange={handleChange}
 									required
-									className="w-full px-6 py-4 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all text-lg"
+									className="w-full px-6 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all text-lg"
 									placeholder="jan@example.com"
 								/>
 							</div>
@@ -230,7 +230,7 @@ const Contact = () => {
 							<div>
 								<label
 									htmlFor="message"
-									className="block text-lg font-medium text-white mb-3">
+									className="block text-lg font-medium text-gray-900 mb-3">
 									Wiadomość *
 								</label>
 								<textarea
@@ -240,7 +240,7 @@ const Contact = () => {
 									onChange={handleChange}
 									required
 									rows={6}
-									className="w-full px-6 py-4 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all resize-none text-lg"
+									className="w-full px-6 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent transition-all resize-none text-lg"
 									placeholder="Jak mogę dołączyć do klubu? Jakie są koszty członkostwa?..."
 								/>
 							</div>

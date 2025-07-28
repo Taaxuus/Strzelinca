@@ -42,19 +42,19 @@ const Gallery = () => {
 
 	return (
 		<>
-			<section id="gallery" className="py-24 lg:py-32 bg-gray-900">
-				<div className="container mx-auto">
+			<section id="gallery" className="py-24 lg:py-32 bg-gray-50">
+				<div className="max-w-7xl mx-auto px-4">
 					<motion.div
 						initial={{ opacity: 0, y: 50 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.8 }}
 						viewport={{ once: true }}
-						className="text-center mb-24 lg:mb-32">
-						<h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8">
+						className="text-center mb-20 lg:mb-24">
+						<h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-8">
 							Galeria
 						</h2>
 						<div className="w-32 h-1.5 bg-red-600 mx-auto mb-10"></div>
-						<p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+						<p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
 							Zobacz nasze nowoczesne zaplecze, profesjonalne stanowiska
 							strzeleckie i atmosferę podczas zajęć i zawodów.
 						</p>
@@ -71,16 +71,16 @@ const Gallery = () => {
 									viewport={{ once: true }}
 									className="group relative overflow-hidden rounded-3xl cursor-pointer w-full max-w-sm flex-grow-0 flex-shrink-0"
 									onClick={() => setSelectedImage(index)}>
-									<div className="bg-gray-800 rounded-3xl overflow-hidden w-full">
-										<div className="w-full h-80 lg:h-96 bg-gradient-to-br from-red-600/20 to-red-800/20 flex items-center justify-center">
-											<div className="text-center text-white px-8">
-												<div className="w-20 h-20 lg:w-24 lg:h-24 bg-red-600/30 rounded-full flex items-center justify-center mx-auto mb-6">
-													<ZoomIn className="w-10 h-10 lg:w-12 lg:h-12" />
+									<div className="bg-white rounded-3xl overflow-hidden w-full shadow-lg border border-gray-200">
+										<div className="w-full h-80 lg:h-96 bg-gradient-to-br from-red-50 to-red-100 flex items-center justify-center">
+											<div className="text-center text-gray-700 px-8">
+												<div className="w-20 h-20 lg:w-24 lg:h-24 bg-red-600/20 rounded-full flex items-center justify-center mx-auto mb-6">
+													<ZoomIn className="w-10 h-10 lg:w-12 lg:h-12 text-red-600" />
 												</div>
-												<p className="font-semibold text-lg lg:text-xl mb-2">
+												<p className="font-semibold text-lg lg:text-xl mb-2 text-gray-900">
 													{image.title}
 												</p>
-												<p className="text-sm md:text-base text-gray-300">
+												<p className="text-sm md:text-base text-gray-600">
 													Kliknij aby powiększyć
 												</p>
 											</div>

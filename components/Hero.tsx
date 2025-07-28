@@ -1,13 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Target, Award, Users, MapPin } from "lucide-react";
+import { Target, Users, MapPin } from "lucide-react";
 import Image from "next/image";
 
 const Hero = () => {
 	const stats = [
 		{ icon: Target, label: "Lat tradycji klubowej", value: "15+" },
-		{ icon: Award, label: "Wykwalifikowanych instruktorów", value: "3" },
+		// { icon: Award, label: "Wykwalifikowanych instruktorów", value: "3" },
 		{ icon: Users, label: "Aktywnych członków klubu", value: "60+" },
 		{ icon: MapPin, label: "Stanowisk treningowych", value: "8" },
 	];
@@ -197,7 +197,7 @@ const Hero = () => {
 					initial={{ opacity: 0, y: 50 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ delay: 1.5, duration: 0.8 }}
-					className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8 xl:gap-10 mt-6 sm:mt-8 md:mt-10 lg:mt-12 xl:mt-16 px-2 sm:px-4">
+					className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 lg:gap-8 xl:gap-10 mt-6 sm:mt-8 md:mt-10 lg:mt-12 xl:mt-16 px-2 sm:px-4">
 					{stats.map((stat, index) => (
 						<motion.div
 							key={stat.label}
@@ -220,7 +220,7 @@ const Hero = () => {
 			</div>
 
 			{/* Scroll Indicator */}
-			<motion.div
+			{/* <motion.div
 				animate={{ y: [0, 10, 0] }}
 				transition={{ duration: 2, repeat: Infinity }}
 				className="absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12 left-1/2 transform -translate-x-1/2 z-20">
@@ -234,7 +234,7 @@ const Hero = () => {
 				<p className="text-white/60 text-xs sm:text-sm md:text-base mt-2 sm:mt-3 font-medium">
 					Przewiń w dół
 				</p>
-			</motion.div>
+			</motion.div> */}
 		</section>
 	);
 };
