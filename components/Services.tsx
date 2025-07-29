@@ -1,21 +1,14 @@
 "use client";
 import { motion } from "framer-motion";
-import {
-	Target,
-	Crosshair,
-	Award,
-	GraduationCap,
-	Clock,
-	CheckCircle,
-} from "lucide-react";
+import { Target, Crosshair, GraduationCap, CheckCircle } from "lucide-react";
 
 const Services = () => {
 	const services = [
 		{
 			icon: GraduationCap,
 			title: "Treningi dla nowych członków",
-			price: "Składka klubowa",
-			duration: "Regularne sesje",
+			price: "Składka klubowa: 60 zł/mc",
+
 			description:
 				"Program wprowadzający dla nowych członków klubu - podstawy bezpieczeństwa i techniki.",
 			features: [
@@ -28,8 +21,8 @@ const Services = () => {
 		{
 			icon: Target,
 			title: "Treningi dla zaawansowanych",
-			price: "Składka klubowa",
-			duration: "Sesje tematyczne",
+			price: "Składka klubowa: 60 zł/mc",
+
 			description: "Zaawansowane treningi klubowe dla doświadczonych członków.",
 			features: [
 				"Doskonalenie techniki",
@@ -40,32 +33,26 @@ const Services = () => {
 		},
 		{
 			icon: Crosshair,
-			title: "Sport strzelecki",
-			price: "Udział w klubie",
-			duration: "Sezon sportowy",
-			description:
-				"Uczestnictwo w zawodach sportowych i reprezentowanie klubu.",
-			features: [
-				"Zawody lokalne",
-				"Turnieje regionalne",
-				"Klasyfikacja sportowa",
-				"Reprezentacja klubu",
-			],
+			title: "Treningi indywidualne",
+			price: "Znizka dla członków klubu",
+
+			description: "Indywidualne sesje treningowe na strzelnicy.",
+			features: [],
 		},
-		{
-			icon: Award,
-			title: "Kursy instruktorskie",
-			price: "Program klubowy",
-			duration: "Cykl szkoleniowy",
-			description:
-				"Szkolenia dla członków chcących zostać instruktorami klubowymi.",
-			features: [
-				"Metodyka nauczania",
-				"Przepisy bezpieczeństwa",
-				"Psychologia sportu",
-				"Certyfikat instruktora",
-			],
-		},
+		// {
+		// 	icon: Award,
+		// 	title: "Kursy instruktorskie",
+		// 	price: "Program klubowy",
+
+		// 	description:
+		// 		"Szkolenia dla członków chcących zostać instruktorami klubowymi.",
+		// 	features: [
+		// 		"Metodyka nauczania",
+		// 		"Przepisy bezpieczeństwa",
+		// 		"Psychologia sportu",
+		// 		"Certyfikat instruktora",
+		// 	],
+		// },
 	];
 
 	return (
@@ -86,7 +73,7 @@ const Services = () => {
 						dla członków na każdym poziomie zaawansowania.
 					</p>
 				</motion.div>
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 mb-16 lg:mb-20">
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 mb-16 lg:mb-20">
 					{services.map((service, index) => (
 						<motion.div
 							key={service.title}
@@ -108,29 +95,27 @@ const Services = () => {
 											{service.price}
 										</span>
 									</div>
-									<div className="flex items-center text-gray-500 text-sm">
-										<Clock className="w-4 h-4 mr-1" />
-										{service.duration}
-									</div>
 								</div>
 								<p className="text-gray-600 leading-relaxed mb-6">
 									{service.description}
 								</p>
-								<div>
-									<h4 className="text-lg font-semibold text-gray-900 mb-4">
-										Co obejmuje:
-									</h4>
-									<ul className="space-y-2">
-										{service.features.map((feature, idx) => (
-											<li
-												key={idx}
-												className="flex items-center text-gray-600 text-sm">
-												<CheckCircle className="w-4 h-4 text-red-500 mr-2 flex-shrink-0" />
-												{feature}
-											</li>
-										))}
-									</ul>
-								</div>
+								{service.features.length > 0 && (
+									<div>
+										<h4 className="text-lg font-semibold text-gray-900 mb-4">
+											Co obejmuje:
+										</h4>
+										<ul className="space-y-2">
+											{service.features.map((feature, idx) => (
+												<li
+													key={idx}
+													className="flex items-center text-gray-600 text-sm">
+													<CheckCircle className="w-4 h-4 text-red-500 mr-2 flex-shrink-0" />
+													{feature}
+												</li>
+											))}
+										</ul>
+									</div>
+								)}
 							</div>
 						</motion.div>
 					))}

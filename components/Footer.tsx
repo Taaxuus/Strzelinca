@@ -1,14 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-	Facebook,
-	Instagram,
-	Youtube,
-	Mail,
-	Phone,
-	MapPin,
-} from "lucide-react";
+import { Facebook, Mail, Phone, MapPin } from "lucide-react";
 import Image from "next/image";
 
 const Footer = () => {
@@ -23,9 +16,8 @@ const Footer = () => {
 
 	const services = [
 		{ name: "Treningi klubowe", href: "#services" },
-		{ name: "Kursy dla początkujących", href: "#services" },
-		{ name: "Zawody i turnieje", href: "#services" },
-		{ name: "Szkolenia instruktorskie", href: "#services" },
+		{ name: "Treningi dla zaawansowanych", href: "#services" },
+		{ name: "Treningi indywidualne", href: "#services" },
 	];
 
 	const socialLinks = [
@@ -34,8 +26,6 @@ const Footer = () => {
 			href: "https://www.facebook.com/p/Klub-Strzelecki-Strzelka-100064567940959/?locale=pl_PL",
 			label: "Facebook",
 		},
-		{ icon: Instagram, href: "#", label: "Instagram" },
-		{ icon: Youtube, href: "#", label: "YouTube" },
 	];
 
 	return (
@@ -157,7 +147,7 @@ const Footer = () => {
 								<a
 									href="tel:+48123456789"
 									className="text-gray-400 hover:text-red-500 transition-colors text-lg">
-									+48 123 456 789
+									+48 502 523 887
 								</a>
 							</div>
 							<div className="flex flex-col items-center space-y-2 text-center">

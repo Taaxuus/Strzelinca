@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Shield, Trophy, BookOpen, Users2 } from "lucide-react";
+import { Shield, Trophy, BookOpen } from "lucide-react";
 import Image from "next/image";
 
 const About = () => {
@@ -9,8 +9,7 @@ const About = () => {
 		{
 			icon: Shield,
 			title: "Bezpieczeństwo",
-			description:
-				"Najwyższe standardy bezpieczeństwa i profesjonalne wyposażenie ochronne.",
+			description: "Najwyższe standardy bezpieczeństwa.",
 		},
 		{
 			icon: Trophy,
@@ -21,14 +20,7 @@ const About = () => {
 		{
 			icon: BookOpen,
 			title: "Szkolenia",
-			description:
-				"Kompleksowe programy szkoleniowe dla członków klubu prowadzone przez wykwalifikowanych instruktorów.",
-		},
-		{
-			icon: Users2,
-			title: "Wspólnota",
-			description:
-				"Prężna wspólnota członków klubu, regularne spotkania i uczestnictwo w zawodach sportowych.",
+			description: "Kompleksowe programy szkoleniowe dla członków klubu.",
 		},
 	];
 
@@ -96,7 +88,7 @@ const About = () => {
 						whileInView={{ opacity: 1, x: 0 }}
 						transition={{ duration: 0.8 }}
 						viewport={{ once: true }}
-						className="flex-1 grid grid-cols-2 gap-6 lg:gap-8">
+						className="flex-1 grid grid-cols-3 gap-6 lg:gap-8">
 						<div className="text-center">
 							<div className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-600 mb-2">
 								15+
@@ -121,19 +113,19 @@ const About = () => {
 								Stanowisk
 							</div>
 						</div>
-						<div className="text-center">
+						{/* <div className="text-center">
 							<div className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-600 mb-2">
 								3
 							</div>
 							<div className="text-sm md:text-base text-gray-600">
 								Instruktorów
 							</div>
-						</div>
+						</div> */}
 					</motion.div>
 				</div>
 
 				{/* Features Grid */}
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
 					{features.map((feature, index) => (
 						<motion.div
 							key={feature.title}

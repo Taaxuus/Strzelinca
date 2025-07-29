@@ -7,10 +7,13 @@ import {
 	Clock,
 	Send,
 	Facebook,
-	Instagram,
-	Youtube,
+	CheckCircle,
+	AlertCircle,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
+import ReCAPTCHA from "react-google-recaptcha";
+
 const Contact = () => {
 	const [formData, setFormData] = useState({
 		name: "",
@@ -18,10 +21,62 @@ const Contact = () => {
 		phone: "",
 		message: "",
 	});
-	const handleSubmit = (e: React.FormEvent) => {
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [submitStatus, setSubmitStatus] = useState<
+		"idle" | "success" | "error"
+	>("idle");
+	const [submitMessage, setSubmitMessage] = useState("");
+	const recaptchaRef = useRef<ReCAPTCHA>(null);
+
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		console.log("Form submitted:", formData);
-		setFormData({ name: "", email: "", phone: "", message: "" });
+
+		// Sprawdź reCAPTCHA
+		const recaptchaValue = recaptchaRef.current?.getValue();
+		if (!recaptchaValue) {
+			setSubmitStatus("error");
+			setSubmitMessage("Proszę potwierdzić, że nie jesteś robotem.");
+			return;
+		}
+
+		setIsSubmitting(true);
+		setSubmitStatus("idle");
+
+		try {
+			// Konfiguracja EmailJS - zastąp swoimi kluczami
+			const serviceId =
+				process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "YOUR_SERVICE_ID";
+			const templateId =
+				process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID";
+			const publicKey =
+				process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY";
+
+			const templateParams = {
+				from_name: formData.name,
+				from_email: formData.email,
+				phone: formData.phone,
+				message: formData.message,
+				to_email: "strzelkaks@gmail.com",
+				"g-recaptcha-response": recaptchaValue,
+			};
+
+			await emailjs.send(serviceId, templateId, templateParams, publicKey);
+
+			setSubmitStatus("success");
+			setSubmitMessage(
+				"Wiadomość została wysłana pomyślnie! Odpowiemy w ciągu 24 godzin."
+			);
+			setFormData({ name: "", email: "", phone: "", message: "" });
+			recaptchaRef.current?.reset();
+		} catch (error) {
+			console.error("Error sending email:", error);
+			setSubmitStatus("error");
+			setSubmitMessage(
+				"Wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie lub skontaktuj się bezpośrednio."
+			);
+		} finally {
+			setIsSubmitting(false);
+		}
 	};
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -42,19 +97,19 @@ const Contact = () => {
 		{
 			icon: Phone,
 			title: "Telefon",
-			details: ["+48 123 456 789", "+48 987 654 321"],
-			link: "tel:+48123456789",
+			details: ["+48 502 523 887"],
+			link: "tel:+48502523887",
 		},
 		{
 			icon: Mail,
 			title: "Email",
-			details: ["strzelkaks@gmail.com", "zarzad@strzelka.pl"],
+			details: ["strzelkaks@gmail.com"],
 			link: "mailto:strzelkaks@gmail.com",
 		},
 		{
 			icon: Clock,
 			title: "Godziny treningów",
-			details: ["Wtorek, Czwartek: 17:00-21:00", "Sobota: 10:00-16:00"],
+			details: ["Każdy drugi wtorek miesiąca: 18:00-20:00"],
 			link: null,
 		},
 	];
@@ -65,8 +120,6 @@ const Contact = () => {
 			href: "https://www.facebook.com/p/Klub-Strzelecki-Strzelka-100064567940959/?locale=pl_PL",
 			label: "Facebook",
 		},
-		{ icon: Instagram, href: "#", label: "Instagram" },
-		{ icon: Youtube, href: "#", label: "YouTube" },
 	];
 
 	return (
@@ -245,13 +298,58 @@ const Contact = () => {
 								/>
 							</div>
 
+							{/* reCAPTCHA */}
+							<div className="flex justify-center">
+								<ReCAPTCHA
+									ref={recaptchaRef}
+									sitekey={
+										process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ||
+										"6LfAZJMrAAAAAJY-_d0NFqyLII7efU1_0mACFbVG"
+									}
+									theme="light"
+								/>
+							</div>
+
+							{/* Status wiadomości */}
+							{submitStatus !== "idle" && (
+								<motion.div
+									initial={{ opacity: 0, y: 10 }}
+									animate={{ opacity: 1, y: 0 }}
+									className={`p-4 rounded-xl flex items-center space-x-3 ${
+										submitStatus === "success"
+											? "bg-green-50 text-green-800 border border-green-200"
+											: "bg-red-50 text-red-800 border border-red-200"
+									}`}>
+									{submitStatus === "success" ? (
+										<CheckCircle className="w-5 h-5 text-green-600" />
+									) : (
+										<AlertCircle className="w-5 h-5 text-red-600" />
+									)}
+									<p className="text-sm font-medium">{submitMessage}</p>
+								</motion.div>
+							)}
+
 							<motion.button
 								type="submit"
-								whileHover={{ scale: 1.02 }}
-								whileTap={{ scale: 0.98 }}
-								className="w-full bg-red-600 hover:bg-red-700 text-white py-5 px-8 rounded-xl font-semibold text-lg lg:text-xl transition-colors duration-300 flex items-center justify-center space-x-3 shadow-lg hover:shadow-red-600/25">
-								<Send className="w-6 h-6" />
-								<span>Wyślij wiadomość</span>
+								disabled={isSubmitting}
+								whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+								whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+								className={`w-full py-5 px-8 rounded-xl font-semibold text-lg lg:text-xl transition-colors duration-300 flex items-center justify-center space-x-3 shadow-lg ${
+									isSubmitting
+										? "bg-gray-400 cursor-not-allowed"
+										: "bg-red-600 hover:bg-red-700 hover:shadow-red-600/25"
+								} text-white`}>
+								{isSubmitting ? (
+									<>
+										<div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+										<span>Wysyłanie...</span>
+									</>
+								) : (
+									<>
+										<Send className="w-6 h-6" />
+										<span>Wyślij wiadomość</span>
+									</>
+								)}
 							</motion.button>
 						</form>
 					</motion.div>

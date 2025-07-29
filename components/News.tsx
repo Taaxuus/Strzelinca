@@ -1,9 +1,10 @@
 "use client";
 import { motion } from "framer-motion";
-import { Calendar, Eye, ArrowRight } from "lucide-react";
+import { Calendar } from "lucide-react";
+import Image from "next/image";
 
 const News = () => {
-	// Funkcja do obliczania następnego drugiego wtorku miesiąca
+	// Funkcja do obliczania aktualnego lub następnego drugiego wtorku miesiąca
 	const getNextSecondTuesday = () => {
 		const now = new Date();
 		const year = now.getFullYear();
@@ -20,7 +21,7 @@ const News = () => {
 		secondTuesday.setDate(firstTuesday.getDate() + 7);
 
 		// Jeśli drugi wtorek tego miesiąca już minął, oblicz dla następnego miesiąca
-		if (secondTuesday <= now) {
+		if (secondTuesday < now) {
 			const nextMonth = month === 11 ? 0 : month + 1;
 			const nextYear = month === 11 ? year + 1 : year;
 
@@ -40,24 +41,29 @@ const News = () => {
 		return secondTuesday;
 	};
 
+	// Oblicz datę raz i używaj jej w całym komponencie
+	const nextTrainingDate = getNextSecondTuesday();
+
 	const news = [
 		{
 			id: 1,
 			title: "Trening Strzelecki - drugi wtorek miesiąca",
-			excerpt: `Regularne treningi strzeleckie odbywają się w każdy drugi wtorek miesiąca. Następny trening: ${getNextSecondTuesday().toLocaleDateString(
+			excerpt: `Regularne treningi strzeleckie odbywają się w każdy drugi wtorek miesiąca. Następny trening: ${nextTrainingDate.toLocaleDateString(
 				"pl-PL",
 				{ day: "numeric", month: "long", year: "numeric" }
 			)}. Zapraszamy wszystkich członków!`,
-			date: getNextSecondTuesday().toISOString().split("T")[0],
+			date: nextTrainingDate.toISOString().split("T")[0],
 			views: 124,
+			img: "/images/trening_wtorek.png", // Przykładowy obraz treningu
 		},
 		{
 			id: 2,
 			title: "II runda zawodów strzeleckich - 7 września",
 			excerpt:
-				"Zapraszamy wszystkich członków klubu na II rundę zawodów strzeleckich, które odbędą się 7 września. Szczegóły dotyczące rejestracji wkrótce.",
+				"Zapraszamy wszystkich członków klubu na II rundę zawodów strzeleckich, które odbędą się 7 września. Szczegóły dotyczące zawodów wkrótce.",
 			date: "2025-09-07",
 			views: 89,
+			img: undefined, // Brak obrazu - użyje domyślnej ikony
 		},
 		{
 			id: 3,
@@ -66,6 +72,7 @@ const News = () => {
 				"Planujemy zorganizować specjalistyczny trening skupiony na strzelaniu TRAP na strzelnicy Bór. Termin zostanie ogłoszony wkrótce.",
 			date: "wkrótce",
 			views: 67,
+			img: undefined, // Brak obrazu - użyje domyślnej ikony
 		},
 	];
 
@@ -112,17 +119,20 @@ const News = () => {
 							viewport={{ once: true }}
 							className="bg-gray-50 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer border border-gray-200">
 							<div className="relative h-48 overflow-hidden">
-								<div className="w-full h-full bg-gradient-to-br from-red-100 to-red-50 flex items-center justify-center">
-									<div className="w-16 h-16 bg-red-600/20 rounded-full flex items-center justify-center">
-										<Calendar className="w-8 h-8 text-red-600" />
+								{article.img ? (
+									<Image
+										src={article.img}
+										alt={article.title}
+										fill
+										className="object-cover group-hover:scale-105 transition-transform duration-300"
+									/>
+								) : (
+									<div className="w-full h-full bg-gradient-to-br from-red-100 to-red-50 flex items-center justify-center">
+										<div className="w-16 h-16 bg-red-600/20 rounded-full flex items-center justify-center">
+											<Calendar className="w-8 h-8 text-red-600" />
+										</div>
 									</div>
-								</div>
-								<div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full">
-									<div className="flex items-center space-x-1 text-sm text-gray-600">
-										<Eye className="w-4 h-4" />
-										<span>{article.views}</span>
-									</div>
-								</div>
+								)}
 							</div>
 
 							<div className="p-6">
@@ -139,16 +149,16 @@ const News = () => {
 									{article.excerpt}
 								</p>
 
-								<div className="flex items-center text-red-600 font-semibold group-hover:text-red-700 transition-colors">
+								{/* <div className="flex items-center text-red-600 font-semibold group-hover:text-red-700 transition-colors">
 									<span className="mr-2">Czytaj więcej</span>
 									<ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-								</div>
+								</div> */}
 							</div>
 						</motion.article>
 					))}
 				</div>
 
-				<motion.div
+				{/* <motion.div
 					initial={{ opacity: 0, y: 30 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8, delay: 0.3 }}
@@ -160,7 +170,7 @@ const News = () => {
 						className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-red-600/25">
 						Zobacz wszystkie aktualności
 					</motion.button>
-				</motion.div>
+				</motion.div> */}
 			</div>
 		</section>
 	);

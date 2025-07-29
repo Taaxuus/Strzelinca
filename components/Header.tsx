@@ -22,6 +22,11 @@ const Header = () => {
 		{ name: "O klubie", href: "#about" },
 		{ name: "Aktywności", href: "#services" },
 		{ name: "Galeria", href: "#gallery" },
+		{
+			name: "Statut klubu",
+			href: "/files/raport_stanowisk_2025-07-25 (1).pdf",
+			isDownload: true,
+		},
 		{ name: "Kontakt", href: "#contact" },
 	];
 
@@ -82,6 +87,7 @@ const Header = () => {
 							<motion.a
 								key={item.name}
 								href={item.href}
+								{...(item.isDownload && { download: true, target: "_blank" })}
 								initial={{ opacity: 0, y: -10 }}
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ delay: 0.3 + index * 0.1 }}
@@ -148,6 +154,7 @@ const Header = () => {
 							<a
 								key={item.name}
 								href={item.href}
+								{...(item.isDownload && { download: true, target: "_blank" })}
 								className="block px-4 py-2 text-white hover:text-red-500 hover:bg-gray-800/50 transition-colors duration-300"
 								onClick={() => setIsMobileMenuOpen(false)}>
 								{item.name}
