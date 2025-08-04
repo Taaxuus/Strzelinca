@@ -1,48 +1,55 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { X, ZoomIn } from "lucide-react";
+import { useState, useEffect } from "react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 const Gallery = () => {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
-	const images = [
-		{
-			src: "/api/placeholder/600/400",
-			alt: "Nowoczesne stanowiska strzeleckie",
-			title: "Stanowiska strzeleckie",
-		},
-		{
-			src: "/api/placeholder/600/400",
-			alt: "Trening z instruktorem",
-			title: "Szkolenie z instruktorem",
-		},
-		{
-			src: "/api/placeholder/600/400",
-			alt: "Sala teoretyczna",
-			title: "Sala szkoleniowa",
-		},
-		{
-			src: "/api/placeholder/600/400",
-			alt: "Wyposażenie klubu",
-			title: "Profesjonalne wyposażenie",
-		},
-		{
-			src: "/api/placeholder/600/400",
-			alt: "Zawody strzeleckie",
-			title: "Zawody klubowe",
-		},
-		{
-			src: "/api/placeholder/600/400",
-			alt: "Ceremonia wręczenia nagród",
-			title: "Ceremonia nagród",
-		},
-	];
+	// Generuj ścieżki do wszystkich 31 zdjęć
+	const images = Array.from({ length: 31 }, (_, index) => {
+		const imageNumber = index + 1;
+		// Obsługa specjalnego przypadku dla pliku "3jpg.jpg"
+		const fileName = imageNumber === 3 ? "3jpg.jpg" : `${imageNumber}.jpg`;
+		return {
+			src: `/images/gallery/${fileName}`,
+			alt: `Zdjęcie galerii ${imageNumber}`,
+		};
+	});
+
+	// Obsługa klawiszy strzałek
+	useEffect(() => {
+		const handleKeyDown = (e: KeyboardEvent) => {
+			if (selectedImage === null) return;
+			
+			if (e.key === "ArrowLeft") {
+				setSelectedImage(selectedImage > 0 ? selectedImage - 1 : images.length - 1);
+			} else if (e.key === "ArrowRight") {
+				setSelectedImage(selectedImage < images.length - 1 ? selectedImage + 1 : 0);
+			} else if (e.key === "Escape") {
+				setSelectedImage(null);
+			}
+		};
+
+		document.addEventListener("keydown", handleKeyDown);
+		return () => document.removeEventListener("keydown", handleKeyDown);
+	}, [selectedImage, images.length]);
+
+	const goToPrevious = () => {
+		if (selectedImage === null) return;
+		setSelectedImage(selectedImage > 0 ? selectedImage - 1 : images.length - 1);
+	};
+
+	const goToNext = () => {
+		if (selectedImage === null) return;
+		setSelectedImage(selectedImage < images.length - 1 ? selectedImage + 1 : 0);
+	};
 
 	return (
 		<>
-			<section id="gallery" className="py-24 lg:py-32 bg-gray-50">
+			<section id="gallery" className="py-24 lg:py-32 bg-white">
 				<div className="max-w-7xl mx-auto px-4">
 					<motion.div
 						initial={{ opacity: 0, y: 50 }}
@@ -60,111 +67,98 @@ const Gallery = () => {
 						</p>
 					</motion.div>
 
-					<div className="flex justify-center mb-24 lg:mb-32">
-						<div className="flex flex-wrap justify-center items-stretch gap-16 lg:gap-20 max-w-6xl">
-							{images.map((image, index) => (
-								<motion.div
-									key={index}
-									initial={{ opacity: 0, scale: 0.8 }}
-									whileInView={{ opacity: 1, scale: 1 }}
-									transition={{ delay: index * 0.1, duration: 0.6 }}
-									viewport={{ once: true }}
-									className="group relative overflow-hidden rounded-3xl cursor-pointer w-full max-w-sm flex-grow-0 flex-shrink-0"
-									onClick={() => setSelectedImage(index)}>
-									<div className="bg-white rounded-3xl overflow-hidden w-full shadow-lg border border-gray-200">
-										<div className="w-full h-80 lg:h-96 bg-gradient-to-br from-red-50 to-red-100 flex items-center justify-center">
-											<div className="text-center text-gray-700 px-8">
-												<div className="w-20 h-20 lg:w-24 lg:h-24 bg-red-600/20 rounded-full flex items-center justify-center mx-auto mb-6">
-													<ZoomIn className="w-10 h-10 lg:w-12 lg:h-12 text-red-600" />
-												</div>
-												<p className="font-semibold text-lg lg:text-xl mb-2 text-gray-900">
-													{image.title}
-												</p>
-												<p className="text-sm md:text-base text-gray-600">
-													Kliknij aby powiększyć
-												</p>
-											</div>
+					{/* Siatka zdjęć */}
+					<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 lg:gap-6">
+						{images.map((image, index) => (
+							<motion.div
+								key={index}
+								initial={{ opacity: 0, scale: 0.8 }}
+								whileInView={{ opacity: 1, scale: 1 }}
+								transition={{ delay: index * 0.02, duration: 0.6 }}
+								viewport={{ once: true }}
+								className="group relative aspect-square overflow-hidden rounded-lg cursor-pointer bg-gray-100"
+								onClick={() => setSelectedImage(index)}>
+								<Image
+									src={image.src}
+									alt={image.alt}
+									fill
+									className="object-cover transition-transform duration-300 group-hover:scale-110"
+									sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
+								/>
+								<div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
+									<div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+										<div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+											<svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+											</svg>
 										</div>
 									</div>
-
-									<div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-3xl">
-										<div className="text-center text-white">
-											<ZoomIn className="w-16 h-16 mx-auto mb-4" />
-											<p className="font-semibold text-xl">{image.title}</p>
-										</div>
-									</div>
-
-									<div className="absolute inset-0 ring-2 ring-transparent group-hover:ring-red-500 rounded-3xl transition-all duration-300"></div>
-								</motion.div>
-							))}
-						</div>
+								</div>
+							</motion.div>
+						))}
 					</div>
-
-					{/* <motion.div
-						initial={{ opacity: 0, y: 50 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.8 }}
-						viewport={{ once: true }}
-						className="flex justify-center">
-						<div className="bg-gradient-to-br from-red-600/20 to-red-800/20 rounded-3xl p-12 lg:p-16 backdrop-blur-sm border border-red-600/30 max-w-4xl w-full text-center">
-							<h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8">
-								Odwiedź nas osobiście
-							</h3>
-							<p className="text-gray-300 mb-10 max-w-3xl mx-auto text-lg md:text-xl lg:text-2xl leading-relaxed">
-								Zapraszamy do osobistego odwiedzenia naszego klubu. Chętnie
-								pokażemy Ci nasze zaplecze i odpowiemy na wszystkie pytania.
-							</p>
-							<motion.a
-								href="#contact"
-								whileHover={{ scale: 1.05 }}
-								whileTap={{ scale: 0.95 }}
-								className="inline-block bg-red-600 hover:bg-red-700 text-white px-12 py-4 lg:px-16 lg:py-5 rounded-xl font-semibold text-lg lg:text-xl transition-colors duration-300">
-								Umów wizytę
-							</motion.a>
-						</div>
-					</motion.div> */}
 				</div>
 			</section>
 
-			{/* Modal for enlarged image */}
+			{/* Modal powiększonego zdjęcia */}
 			{selectedImage !== null && (
 				<motion.div
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
-					className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+					className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center"
 					onClick={() => setSelectedImage(null)}>
+					
+					{/* Przycisk zamknij */}
+					<button
+						onClick={() => setSelectedImage(null)}
+						className="absolute top-6 right-6 z-10 text-white hover:text-red-500 transition-colors">
+						<X className="w-8 h-8" />
+					</button>
+
+					{/* Strzałka w lewo */}
+					<button
+						onClick={(e) => {
+							e.stopPropagation();
+							goToPrevious();
+						}}
+						className="absolute left-6 top-1/2 transform -translate-y-1/2 z-10 text-white hover:text-red-500 transition-colors">
+						<ChevronLeft className="w-12 h-12" />
+					</button>
+
+					{/* Strzałka w prawo */}
+					<button
+						onClick={(e) => {
+							e.stopPropagation();
+							goToNext();
+						}}
+						className="absolute right-6 top-1/2 transform -translate-y-1/2 z-10 text-white hover:text-red-500 transition-colors">
+						<ChevronRight className="w-12 h-12" />
+					</button>
+
+					{/* Zdjęcie */}
 					<motion.div
 						initial={{ scale: 0.8 }}
 						animate={{ scale: 1 }}
 						exit={{ scale: 0.8 }}
-						className="relative max-w-4xl max-h-full"
+						className="relative max-w-[90vw] max-h-[90vh] w-full h-full flex items-center justify-center"
 						onClick={(e) => e.stopPropagation()}>
-						<button
-							onClick={() => setSelectedImage(null)}
-							className="absolute -top-12 right-0 text-white hover:text-red-500 transition-colors">
-							<X className="w-8 h-8" />
-						</button>
-
-						<div className="bg-gradient-to-br from-red-600/20 to-red-800/20 rounded-2xl p-8 backdrop-blur-sm border border-red-600/30">
-							<h3 className="text-2xl font-bold text-white text-center mb-4">
-								{images[selectedImage].title}
-							</h3>
-							<div className="w-full h-96 bg-gray-800 rounded-xl flex items-center justify-center">
-								<div className="text-center text-white">
-									<div className="w-20 h-20 bg-red-600/30 rounded-full flex items-center justify-center mx-auto mb-4">
-										<ZoomIn className="w-10 h-10" />
-									</div>
-									<p className="text-lg font-semibold">
-										{images[selectedImage].title}
-									</p>
-									<p className="text-gray-300 mt-2">
-										Zdjęcie będzie dostępne wkrótce
-									</p>
-								</div>
-							</div>
+						<div className="relative w-full h-full">
+							<Image
+								src={images[selectedImage].src}
+								alt={images[selectedImage].alt}
+								fill
+								className="object-contain"
+								sizes="90vw"
+								priority
+							/>
 						</div>
 					</motion.div>
+
+					{/* Licznik zdjęć */}
+					<div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white text-lg">
+						{selectedImage + 1} / {images.length}
+					</div>
 				</motion.div>
 			)}
 		</>
