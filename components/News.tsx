@@ -63,7 +63,7 @@ const News = () => {
 				"Zapraszamy wszystkich członków klubu na II rundę zawodów strzeleckich, które odbędą się 7 września. Szczegóły dotyczące zawodów wkrótce.",
 			date: "2025-09-07",
 			views: 89,
-			img: undefined, // Brak obrazu - użyje domyślnej ikony
+			img: "/images/rundaa.png", // Przykładowy obraz treningu
 		},
 		{
 			id: 3,
@@ -72,7 +72,7 @@ const News = () => {
 				"Planujemy zorganizować specjalistyczny trening skupiony na strzelaniu TRAP na strzelnicy Bór. Termin zostanie ogłoszony wkrótce.",
 			date: "wkrótce",
 			views: 67,
-			img: undefined, // Brak obrazu - użyje domyślnej ikony
+			img: "/images/trap.png", // Przykładowy obraz treningu
 		},
 	];
 
