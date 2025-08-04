@@ -304,7 +304,7 @@ const Contact = () => {
 									ref={recaptchaRef}
 									sitekey={
 										process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ||
-										"6LfAZJMrAAAAAJY-_d0NFqyLII7efU1_0mACFbVG"
+										"6LfRKZorAAAAAFFjqqKJNptk7Sz2DtF7DR1pvrYQ"
 									}
 									theme="light"
 								/>
