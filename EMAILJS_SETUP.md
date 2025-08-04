@@ -14,6 +14,7 @@
 4. Postępuj zgodnie z instrukcjami dla twojego dostawcy
 
 ### Dla Gmail:
+
 - Wybierz "Gmail"
 - Zaloguj się do swojego konta Gmail
 - Autoryzuj EmailJS
@@ -28,6 +29,7 @@
 **Subject:** Nowa wiadomość z formularza kontaktowego - Klub Strzelecki Strzelka
 
 **Content:**
+
 ```
 Otrzymałeś nową wiadomość z formularza kontaktowego:
 
