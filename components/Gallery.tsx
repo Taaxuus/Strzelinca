@@ -8,13 +8,12 @@ import Image from "next/image";
 const Gallery = () => {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
-	// Generuj ścieżki do wszystkich 31 zdjęć
-	const images = Array.from({ length: 31 }, (_, index) => {
-		const imageNumber = index + 1;
-		// Obsługa specjalnego przypadku dla pliku "3jpg.jpg"
-		const fileName = imageNumber === 3 ? "3jpg.jpg" : `${imageNumber}.jpg`;
+	// Generuj ścieżki do wszystkich zdjęć (pomijając nr 3)
+	const images = Array.from({ length: 30 }, (_, index) => {
+		// Pomijamy zdjęcie nr 3, więc po 2 przechodzimy od razu do 4
+		const imageNumber = index < 2 ? index + 1 : index + 2;
 		return {
-			src: `/images/gallery/${fileName}`,
+			src: `/images/gallery/${imageNumber}.jpg`,
 			alt: `Zdjęcie galerii ${imageNumber}`,
 		};
 	});
