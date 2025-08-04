@@ -24,7 +24,7 @@ const Header = () => {
 		{ name: "Galeria", href: "#gallery" },
 		{
 			name: "Statut klubu",
-			href: "/files/raport_stanowisk_2025-07-25 (1).pdf",
+			href: "/files/Statut_KS_Strzelka.pdf",
 			isDownload: true,
 		},
 		{ name: "Kontakt", href: "#contact" },
