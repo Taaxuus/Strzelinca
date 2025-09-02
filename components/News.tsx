@@ -47,12 +47,20 @@ const News = () => {
 	const news = [
 		{
 			id: 1,
-			title: "Trening Strzelecki - drugi wtorek miesiąca",
+			title: `Trening Strzelecki - drugi wtorek ${nextTrainingDate.toLocaleDateString(
+				"pl-PL",
+				{ month: "long", year: "numeric" }
+			)}`,
 			excerpt: `Regularne treningi strzeleckie odbywają się w każdy drugi wtorek miesiąca. Następny trening: ${nextTrainingDate.toLocaleDateString(
 				"pl-PL",
 				{ day: "numeric", month: "long", year: "numeric" }
 			)}. Zapraszamy wszystkich członków!`,
-			date: nextTrainingDate.toISOString().split("T")[0],
+			date: `${nextTrainingDate.getFullYear()}-${String(
+				nextTrainingDate.getMonth() + 1
+			).padStart(2, "0")}-${String(nextTrainingDate.getDate()).padStart(
+				2,
+				"0"
+			)}`,
 			views: 124,
 			img: "/images/trening_wtorek.png", // Przykładowy obraz treningu
 		},
