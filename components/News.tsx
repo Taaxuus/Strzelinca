@@ -20,25 +20,30 @@ const News = () => {
 		const secondTuesday = new Date(firstTuesday);
 		secondTuesday.setDate(firstTuesday.getDate() + 7);
 
-		// Jeśli drugi wtorek tego miesiąca już minął, oblicz dla następnego miesiąca
-		if (secondTuesday < now) {
-			const nextMonth = month === 11 ? 0 : month + 1;
-			const nextYear = month === 11 ? year + 1 : year;
+		// Utwórz datę końca dnia treningu (23:59:59)
+		const endOfTrainingDay = new Date(secondTuesday);
+		endOfTrainingDay.setHours(23, 59, 59, 999);
 
-			const nextFirstDay = new Date(nextYear, nextMonth, 1);
-			const nextDaysUntilFirstTuesday = (2 - nextFirstDay.getDay() + 7) % 7;
-			const nextFirstTuesday = new Date(
-				nextYear,
-				nextMonth,
-				1 + nextDaysUntilFirstTuesday
-			);
-			const nextSecondTuesday = new Date(nextFirstTuesday);
-			nextSecondTuesday.setDate(nextFirstTuesday.getDate() + 7);
-
-			return nextSecondTuesday;
+		// Jeśli jeszcze nie minęła 23:59 dnia treningu, zwróć aktualny termin
+		if (now <= endOfTrainingDay) {
+			return secondTuesday;
 		}
 
-		return secondTuesday;
+		// Jeśli już po 23:59 dnia treningu, oblicz dla następnego miesiąca
+		const nextMonth = month === 11 ? 0 : month + 1;
+		const nextYear = month === 11 ? year + 1 : year;
+
+		const nextFirstDay = new Date(nextYear, nextMonth, 1);
+		const nextDaysUntilFirstTuesday = (2 - nextFirstDay.getDay() + 7) % 7;
+		const nextFirstTuesday = new Date(
+			nextYear,
+			nextMonth,
+			1 + nextDaysUntilFirstTuesday
+		);
+		const nextSecondTuesday = new Date(nextFirstTuesday);
+		nextSecondTuesday.setDate(nextFirstTuesday.getDate() + 7);
+
+		return nextSecondTuesday;
 	};
 
 	// Oblicz datę raz i używaj jej w całym komponencie
