@@ -157,7 +157,18 @@ const Header = () => {
 								href={item.href}
 								{...(item.isDownload && { download: true, target: "_blank" })}
 								className="block px-4 py-2 text-white hover:text-red-500 hover:bg-gray-800/50 transition-colors duration-300"
-								onClick={() => setIsMobileMenuOpen(false)}>
+								onClick={(e) => {
+									if (!item.isDownload && item.href.startsWith("#")) {
+										e.preventDefault();
+										setIsMobileMenuOpen(false);
+										setTimeout(() => {
+											const el = document.querySelector(item.href);
+											if (el) el.scrollIntoView({ behavior: "smooth" });
+										}, 300);
+									} else {
+										setIsMobileMenuOpen(false);
+									}
+								}}>
 								{item.name}
 							</a>
 						))}
