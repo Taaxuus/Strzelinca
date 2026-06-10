@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { Calendar } from "lucide-react";
+import { ArrowRight, Calendar } from "lucide-react";
 import Image from "next/image";
 
 const News = () => {
@@ -38,7 +38,7 @@ const News = () => {
 		const nextFirstTuesday = new Date(
 			nextYear,
 			nextMonth,
-			1 + nextDaysUntilFirstTuesday
+			1 + nextDaysUntilFirstTuesday,
 		);
 		const nextSecondTuesday = new Date(nextFirstTuesday);
 		nextSecondTuesday.setDate(nextFirstTuesday.getDate() + 7);
@@ -54,17 +54,17 @@ const News = () => {
 			id: 1,
 			title: `Trening Strzelecki - drugi wtorek ${nextTrainingDate.toLocaleDateString(
 				"pl-PL",
-				{ month: "long", year: "numeric" }
+				{ month: "long", year: "numeric" },
 			)}`,
 			excerpt: `Regularne treningi strzeleckie odbywają się w każdy drugi wtorek miesiąca. Następny trening: ${nextTrainingDate.toLocaleDateString(
 				"pl-PL",
-				{ day: "numeric", month: "long", year: "numeric" }
+				{ day: "numeric", month: "long", year: "numeric" },
 			)}. Zapraszamy wszystkich członków!`,
 			date: `${nextTrainingDate.getFullYear()}-${String(
-				nextTrainingDate.getMonth() + 1
+				nextTrainingDate.getMonth() + 1,
 			).padStart(2, "0")}-${String(nextTrainingDate.getDate()).padStart(
 				2,
-				"0"
+				"0",
 			)}`,
 			views: 124,
 			img: "/images/trening_wtorek.png", // Przykładowy obraz treningu
@@ -85,7 +85,17 @@ const News = () => {
 				"Planujemy zorganizować specjalistyczny trening skupiony na strzelaniu TRAP na strzelnicy Bór. Termin zostanie ogłoszony wkrótce.",
 			date: "wkrótce",
 			views: 67,
-			img: "/images/trap.png", // Przykładowy obraz treningu
+			img: "/images/trap.png",
+		},
+		{
+			id: 4,
+			title: "Zawody strzeleckie – 28 czerwca 2026",
+			excerpt:
+				"Zapraszamy na zawody strzeleckie w dniu 28.06.2026 (godz. 8:00–13:00) na strzelnicy przy ul. Złotej 65 w Głogowie Młp. Rejestracja do godz. 10:00. W programie 8 konkurencji pistoletowych, karabinowych i strzelby.",
+			date: "2026-06-28",
+			views: 0,
+			img: "/images/SZawody.png",
+			href: "#zawody",
 		},
 	];
 
@@ -102,6 +112,12 @@ const News = () => {
 			year: "numeric",
 		});
 	};
+
+	const sortedNews = [...news].sort((a, b) => {
+		if (a.date === "wkrótce") return 1;
+		if (b.date === "wkrótce") return -1;
+		return new Date(b.date).getTime() - new Date(a.date).getTime();
+	});
 
 	return (
 		<section id="news" className="py-24 lg:py-32 bg-white">
@@ -123,7 +139,7 @@ const News = () => {
 				</motion.div>
 
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-					{news.map((article, index) => (
+					{sortedNews.map((article, index) => (
 						<motion.article
 							key={article.id}
 							initial={{ opacity: 0, y: 50 }}
@@ -162,10 +178,14 @@ const News = () => {
 									{article.excerpt}
 								</p>
 
-								{/* <div className="flex items-center text-red-600 font-semibold group-hover:text-red-700 transition-colors">
-									<span className="mr-2">Czytaj więcej</span>
-									<ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-								</div> */}
+								{"href" in article && article.href && (
+									<a
+										href={article.href}
+										className="inline-flex items-center text-red-600 font-semibold hover:text-red-700 transition-colors group/link">
+										<span className="mr-2">Czytaj więcej</span>
+										<ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+									</a>
+								)}
 							</div>
 						</motion.article>
 					))}

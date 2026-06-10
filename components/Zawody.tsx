@@ -1,6 +1,8 @@
 "use client";
 import { motion } from "framer-motion";
-import { MapPin, Clock, Calendar, Target } from "lucide-react";
+import { MapPin, Clock, Calendar, Target, CheckCircle, Bell } from "lucide-react";
+
+const COMPETITION_DATE = new Date("2026-06-28T13:00:00");
 
 const disciplines = [
 	{
@@ -28,7 +30,8 @@ const disciplines = [
 		name: "Pistolet centralnego zapłonu 10 strzałów",
 		code: "PCZ 10 Żołnierz",
 		distance: "15 m",
-		shots: 'mechaniczne przyrządy celownicze, 10 strzałów ocenianych do jednej tarczy „Żołnierz"',
+		shots:
+			'mechaniczne przyrządy celownicze, 10 strzałów ocenianych do jednej tarczy „Żołnierz"',
 		time: "30 sekund",
 	},
 	{
@@ -42,7 +45,8 @@ const disciplines = [
 		name: "Karabin Wojskowy 10 strzałów",
 		code: "KW 10 Żołnierz",
 		distance: "25 m",
-		shots: 'mechaniczne przyrządy celownicze, 10 strzałów ocenianych do tarczy „Żołnierz"',
+		shots:
+			'mechaniczne przyrządy celownicze, 10 strzałów ocenianych do tarczy „Żołnierz"',
 		time: "15 sekund",
 	},
 	{
@@ -62,6 +66,8 @@ const disciplines = [
 ];
 
 const Zawody = () => {
+	const isFinished = new Date() > COMPETITION_DATE;
+
 	return (
 		<section id="zawody" className="py-24 lg:py-32 bg-gray-900 text-white">
 			<div className="max-w-7xl mx-auto px-4">
@@ -77,18 +83,47 @@ const Zawody = () => {
 					</h2>
 					<div className="w-32 h-1.5 bg-red-600 mx-auto mb-10"></div>
 					<p className="text-xl md:text-2xl text-gray-400 max-w-4xl mx-auto leading-relaxed">
-						Informacje o nadchodzących zawodach — termin, miejsce i program.
+						{isFinished
+							? "Informacje o kolejnych zawodach pojawią się wkrótce."
+							: "Informacje o nadchodzących zawodach — termin, miejsce i program."}
 					</p>
 				</motion.div>
 
-				{/* Termin i miejsce */}
+				{isFinished ? (
+					/* Zawody zakończone */
+					<motion.div
+						initial={{ opacity: 0, y: 40 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.7 }}
+						viewport={{ once: true }}
+						className="flex flex-col items-center gap-8 text-center">
+						<div className="flex items-center justify-center w-24 h-24 rounded-full bg-green-600/20 border border-green-600/30">
+							<CheckCircle className="w-12 h-12 text-green-500" />
+						</div>
+						<div>
+							<h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+								Zawody zakończone
+							</h3>
+							<p className="text-gray-400 text-lg max-w-xl">
+								Zawody z dnia 28.06.2026 zostały zakończone. Dziękujemy wszystkim uczestnikom!
+							</p>
+						</div>
+						<div className="flex items-center gap-3 bg-gray-800 border border-gray-700 rounded-2xl px-8 py-5">
+							<Bell className="w-6 h-6 text-red-500 shrink-0" />
+							<p className="text-gray-300">
+								Informacje o kolejnych zawodach pojawią się wkrótce — śledź aktualności.
+							</p>
+						</div>
+					</motion.div>
+				) : (
+					<>
 				<motion.div
 					initial={{ opacity: 0, y: 40 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.7 }}
 					viewport={{ once: true }}
 					className="mb-16 lg:mb-20">
-<h3 className="text-2xl md:text-3xl font-bold text-white mb-8">
+					<h3 className="text-2xl md:text-3xl font-bold text-white mb-8">
 						Termin i miejsce zawodów
 					</h3>
 
@@ -113,10 +148,15 @@ const Zawody = () => {
 								<p className="text-gray-300 flex items-center gap-1 mt-1">
 									<Clock className="w-4 h-4 text-red-500 shrink-0" />
 									<span>godz. 8:00 – 13:00</span>
-								</p>							<p className="text-gray-400 flex items-center gap-1 mt-2 text-sm">
-								<Clock className="w-3.5 h-3.5 text-red-500 shrink-0" />
-								<span>Rejestracja do godz. <span className="text-red-400 font-semibold">10:00</span></span>
-							</p>							</div>
+								</p>{" "}
+								<p className="text-gray-400 flex items-center gap-1 mt-2 text-sm">
+									<Clock className="w-3.5 h-3.5 text-red-500 shrink-0" />
+									<span>
+										Rejestracja do godz.{" "}
+										<span className="text-red-400 font-semibold">10:00</span>
+									</span>
+								</p>{" "}
+							</div>
 						</motion.div>
 
 						{/* Adres */}
@@ -148,7 +188,7 @@ const Zawody = () => {
 					whileInView={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.7 }}
 					viewport={{ once: true }}>
-<h3 className="text-2xl md:text-3xl font-bold text-white mb-8">
+					<h3 className="text-2xl md:text-3xl font-bold text-white mb-8">
 						Program zawodów
 					</h3>
 
@@ -175,9 +215,13 @@ const Zawody = () => {
 										<div className="space-y-1.5 text-sm text-gray-400">
 											<p>
 												<span className="text-gray-500">Dystans:</span>{" "}
-												<span className="text-gray-300 font-medium">{d.distance}</span>
+												<span className="text-gray-300 font-medium">
+													{d.distance}
+												</span>
 												{" · "}
-												<span className="text-gray-500">Mechaniczne przyrządy celownicze</span>
+												<span className="text-gray-500">
+													Mechaniczne przyrządy celownicze
+												</span>
 											</p>
 											<p>
 												<span className="text-gray-500">Strzały:</span>{" "}
@@ -185,7 +229,9 @@ const Zawody = () => {
 											</p>
 											<p className="flex items-center gap-1.5">
 												<Clock className="w-3.5 h-3.5 text-red-500 shrink-0" />
-												<span className="text-gray-300 font-semibold">{d.time}</span>
+												<span className="text-gray-300 font-semibold">
+													{d.time}
+												</span>
 											</p>
 										</div>
 									</div>
@@ -194,6 +240,8 @@ const Zawody = () => {
 						))}
 					</div>
 				</motion.div>
+				</>
+				)}
 			</div>
 		</section>
 	);
