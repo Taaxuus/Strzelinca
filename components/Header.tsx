@@ -21,6 +21,7 @@ const Header = () => {
 	const navigation = [
 		{ name: "O klubie", href: "#about" },
 		{ name: "Aktywności", href: "#services" },
+		{ name: "Zawody", href: "#zawody" },
 		{ name: "Galeria", href: "#gallery" },
 		{
 			name: "Statut klubu",
